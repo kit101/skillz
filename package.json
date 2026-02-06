@@ -1,0 +1,22 @@
+{
+    "name": "skillz",
+    "version": "0.1.0",
+    "description": "Some skills for ai agents",
+    "repository": "https://github.com/kit101/skillz",
+    "author": "kit101 <qkssk1711@163.com>",
+    "scripts": {
+        "dev": "yarn dev:opencode",
+        "dev:qwen-code": "dotenvx -d run -o -f .env.local -- qwen-code",
+        "dev:qodercli": "dotenvx -d run -o -f .env.local -- qodercli",
+        "dev:opencode": "dotenvx -d run -o -f .env.local -- opencode",
+        "ddev": "yarn ddev:opencode",
+        "ddev:qwen": "docker run --rm -it -v .:/workspace -w /workspace --env-file .env.local kit101z/qwen-code bash",
+        "ddev:qodercli": "docker run --rm -it -v .:/workspace -w /workspace --env-file .env.local kit101z/qodercli bash",
+        "ddev:opencode": "docker run --rm -it -v .:/workspace -w /workspace --env-file .env.local ghcr.io/anomalyco/opencode",
+        "init-skill": "cd skills && skills init"
+    },
+    "devDependencies": {
+        "skills": "^1.3.0",
+        "@dotenvx/dotenvx": "^1.52.0"
+    }
+}

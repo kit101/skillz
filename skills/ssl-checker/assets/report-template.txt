@@ -1,0 +1,31 @@
+SSL证书检查报告
+===============
+报告时间: {{timestamp}}
+检查域名数量: {{totalChecked}}
+
+摘要:
+- 有效证书: {{validCertificates}}
+- 即将过期: {{expiringSoon}}
+- 检查错误: {{errors}}
+- 需要关注: {{needsAttention}}
+
+详细结果:
+{{#each results}}
+域名: {{hostname}}
+  状态: {{#if error}}错误{{else if isExpiringSoon}}即将过期{{else}}正常{{/if}}
+  生效日期: {{valid_from}}
+  过期日期: {{valid_to}}
+  剩余天数: {{days_left}}
+  证书颁发机构: {{issuer}}
+  {{#if error}}
+  错误信息: {{error}}
+  {{/if}}
+  ------------------------
+{{/each}}
+
+需要立即关注的证书:
+{{#each alerts}}
+- {{hostname}}: {{#if error}}{{error}}{{else}}将在 {{days_left}} 天后过期{{/if}}
+{{/each}}
+
+注意: 请及时更新即将过期的SSL证书，以确保服务的连续性。
