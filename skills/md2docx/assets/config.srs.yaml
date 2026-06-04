@@ -1,0 +1,60 @@
+# 继承自 config.default.yaml，仅列出差异项
+
+output: "SRS.docx"
+title: "软件需求说明"      # 显示在标题页的文本
+
+page:
+  width: 11906
+  height: 16838
+  margin_top: 1440
+  margin_bottom: 1440
+  margin_left: 1260
+  margin_right: 1260
+
+fonts:
+  body:
+    name: SimSun
+    size: 21              # 五号
+  headings:
+    h1: { name: SimHei, size: 32, bold: true, color: "000000" }
+    h2: { name: SimHei, size: 28, bold: true, color: "000000" }
+    h3: { name: SimHei, size: 26, bold: true, color: "000000" }
+    h4: { name: SimHei, size: 24, bold: true, color: "000000" }
+    h5: { name: SimHei, size: 24, bold: true, color: "000000" }
+
+paragraph:
+  line_spacing: 360
+  first_line_indent: 420
+
+title_page:
+  spacing_before: 5400
+  centered: true
+  page_break_after: true
+
+toc:
+  title: "目  录"
+  depth: 5
+  page_break_after: true
+
+header:
+  text: "软件需求说明"
+  font: SimHei
+  size: 18
+  color: "666666"
+
+footer:
+  page_number: true
+
+tables:
+  column_strategy: content   # 按每列最长文字比例分配（推荐）
+  header_style: none         # 暂不美化表头
+  # 1.1 标识 和 1.2.4 项目相关单位 是小表格，其余全宽
+  small_table_indices: [0, 1]
+  cell_margins: { top: 60, bottom: 60, start: 60, end: 60 }
+  borders:
+    top:    { val: single, sz: 4, color: "000000" }
+    bottom: { val: single, sz: 4, color: "000000" }
+    insideH: { val: none }  # PDF 不显示中间线
+
+auto_numbering: false
+render_mermaid: true

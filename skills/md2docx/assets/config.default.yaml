@@ -1,0 +1,96 @@
+# md2docx 默认配置
+# 所有尺寸单位：DXA（1 inch = 1440 DXA，1pt = 20 DXA）
+# 字号：半磅制，sz=21 = 五号(10.5pt)，sz=24 = 小四(12pt)，sz=28 = 四号(14pt)，sz=32 = 三号(16pt)
+
+# ---- 输出 ----
+output: "output.docx"
+title: ""                   # 标题页文本（空=不生成标题页）
+
+# ---- 页面 ----
+page:
+  width: 11906   # A4
+  height: 16838
+  margin_top: 1440
+  margin_bottom: 1440
+  margin_left: 1260
+  margin_right: 1260
+
+# ---- 字体 ----
+fonts:
+  body:
+    name: SimSun          # 宋体
+    size: 21              # 五号 10.5pt
+  headings:
+    h1: { name: SimHei, size: 32, bold: true, color: "000000" }   # 黑体三号
+    h2: { name: SimHei, size: 28, bold: true, color: "000000" }   # 黑体四号
+    h3: { name: SimHei, size: 26, bold: true, color: "000000" }   # 黑体13pt
+    h4: { name: SimHei, size: 24, bold: true, color: "000000" }   # 黑体小四
+    h5: { name: SimHei, size: 24, bold: true, color: "000000" }
+
+# ---- 段落 ----
+paragraph:
+  line_spacing: 360       # 1.5 倍行距
+  first_line_indent: 420  # 正文首行缩进（DXA），表格内容不缩进
+
+# ---- 标题页 ----
+title_page:
+  spacing_before: 5400    # 标题距页面上方距离
+  centered: true
+  page_break_after: true  # 标题独占一页
+
+# ---- 目录 ----
+toc:
+  title: "目  录"
+  depth: 5                # 目录层级深度
+  page_break_after: true  # 目录后分页
+
+# ---- 页眉页脚 ----
+header:
+  text: ""
+  font: SimHei
+  size: 18
+  color: "666666"
+
+footer:
+  page_number: true
+  size: 18
+  color: "666666"
+
+# ---- 表格 ----
+tables:
+  # 列宽策略：
+  #   content - 按每列最长文字比例分配（推荐，默认）
+  #   auto    - Word 自动根据内容适配
+  #   scale   - 等比缩放 pandoc 的列宽比例到页面宽度
+  #   none    - 保持 pandoc 原始宽度，不做调整
+  column_strategy: content
+
+  # 表头样式：
+  #   shaded - 浅灰背景 + 加粗 + 垂直居中
+  #   bold   - 仅加粗 + 垂直居中
+  #   none   - 不额外美化（默认）
+  header_style: none
+
+  # small_table_indices: 哪些表格保持自适应宽度（0-based 索引），不设置则全部全宽
+  small_table_indices: []
+  cell_margins:
+    top: 60
+    bottom: 60
+    start: 60
+    end: 60
+  borders:
+    top:    { val: single, sz: 4, color: "000000" }   # 表顶实线
+    bottom: { val: single, sz: 4, color: "000000" }   # 表底实线
+    insideH: { val: none }                              # 中间横线（none=PDF不可见, dashed=虚线, single=实线）
+
+# ---- 编号 ----
+# 如果 markdown 标题已含手动编号（如 "1 范围"），设置 false
+# 如果 markdown 标题无编号（如 "范围"），设置 true 让 pandoc 自动编号
+auto_numbering: false
+
+# ---- 其他 ----
+# Mermaid 图表是否渲染为 PNG 嵌入
+render_mermaid: true
+
+# pandoc 额外参数
+pandoc_from_format: "markdown+pipe_tables+multiline_tables"

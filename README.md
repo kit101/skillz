@@ -2,51 +2,50 @@
 
 技能库，用于 qwen-code/qodercli/opencode/codex/trae 等 AI Agent。
 
+## 技能清单
+
+| 技能名称 | 描述 | 状态 |
+|----------|------|------|
+| [md2docx](skills/md2docx/) | Markdown 转为正式 DOCX（论文、标准文档），支持自定义样式、封面、页眉页脚、首行缩进、表格美化、Mermaid 图表渲染，保留 unpack 中间产物供 Agent 手动微调 | ✅ 已创建 |
+| hello-world | 示例技能 | ✅ 已创建 |
+| session-pretty-replay | 会话回放技能 | ⚠️ 废弃 |
+| ssl-checker | SSL 证书检查技能 | ⚠️ 废弃 |
+
+
 ## 目录结构
 
 ```
 .
-├── skills/              # 技能目录
-│   ├── skill1/         # 单个技能
-│   │   ├── SKILL.md    # 技能定义（必需）
-│   │   ├── scripts/    # 可执行脚本（可选）
-│   │   ├── references/ # 参考文档（可选）
-│   │   └── assets/     # 资源文件（可选）
-│   └── skill2/
-└── README.md           # 本文件
+├── skills/                  # 技能目录
+│   ├── md2docx/            # Markdown → DOCX 转换
+│   │   ├── SKILL.md        # 技能定义（必需）
+│   │   ├── readme.md       # 技能说明（推荐）
+│   │   ├── scripts/        # 可执行脚本
+│   │   │   ├── build.py
+│   │   │   └── render_mermaid.py
+│   │   └── assets/         # 配置模板、字体等资源
+│   │       ├── config.default.yaml
+│   │       └── config.gjb.yaml
+│   └── hello-world/        # 示例技能
+└── README.md               # 本文件
 ```
 
 ## 开发流程
 
-### 1. 开发工准备
+### 1. 开发环境准备
 
-#### node、yarn/npm 或者 python、uvx
+| 工具 | 用途 | 安装 |
+|------|------|------|
+| Node.js / Python | 脚本执行环境 | 系统包管理器或官网 |
+| [dotenvx](https://dotenvx.com/) | 加载 `.env.local` 环境变量到 CLI | `npm install -g dotenvx` |
+| [skills CLI](https://github.com/vercel-labs/skills) | 技能的安装、卸载、管理 | `npm install -g skills` |
+| skill-creator | 创建和更新技能的辅助技能 | `skills add anthropics/skills --skill skill-creator -a opencode` |
+| Docker（可选） | 隔离开发环境 | `yarn ddev` |
 
-用于安装一些工具和作为脚本的执行语言。
-
-#### dotenvx
-
-基于node的cli环境变量工具，将.env.local的环境变量加载到cli中。
+**dotenvx 使用示例：**
 ```bash
-npm install -g dotenvx
 dotenvx run -o -f .env -- opencode
 ```
-#### [skills](https://github.com/vercel-labs/skills)
-
-skill cli工具，用于创建、安装、卸载等。
-
-#### skill creator
-
-skill creator 是一个用于创建、更新skill的skill。
-
-```bash
-skills add anthropics/skills --skill skill-creator -a opencode
-```
-
-#### （可选）docker
-
-使用隔离环境开发skill。
-yarn ddev
 
 ### 2. 创建技能
 
@@ -67,16 +66,11 @@ yarn init-skill your-skill
 ## 使用技能
 
 ```bash
-skills add kit101z/skillz --skill hello-world
+# 安装单个技能
+npx skills add kit101z/skillz --skill md2docx
+
 ```
 
-## 技能清单
-
-| 技能名称 | 描述 | 状态 |
-|---------|------|------|
-| hello-world | 示例技能 | ✅ 已创建 |
-| session-pretty-replay | 会话回放技能 | ✅ 已创建 |
-| ssl-checker | SSL证书检查技能 | ✅ 已创建 |
 
 ## 许可证
 
