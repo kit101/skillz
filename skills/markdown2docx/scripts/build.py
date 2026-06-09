@@ -734,20 +734,25 @@ def build(input_md: str, config_path: str, output_path: str = None):
     """Run the full build pipeline."""
     config = load_config(config_path)
     
+    md_dir = os.path.dirname(os.path.abspath(input_md))
+    md_basename = os.path.splitext(os.path.basename(input_md))[0]
+    
     # Resolve output path:
     #   --output/-o flag → relative to CWD (standard Unix convention)
     #   YAML config only  → relative to input markdown directory (more intuitive)
+    #   If neither specified, default to input basename + .docx
     from_config = (output_path is None)
     if from_config:
-        output_path = config.get("output", "output.docx")
-    md_dir = os.path.dirname(os.path.abspath(input_md))
+        output_path = config.get("output") or f"{md_basename}.docx"
     if not os.path.isabs(output_path):
         output_path = os.path.join(md_dir if from_config else os.getcwd(), output_path)
     output_path = os.path.abspath(output_path)
     
     # Use named work directory (not temp) so intermediate artifacts persist
-    md_basename = os.path.splitext(os.path.basename(input_md))[0]
-    work_dir = os.path.join(md_dir, f"{md_basename}.docx-build")
+    # work_dir basename matches output filename (e.g. X.docx → X.docx-build)
+    output_basename = os.path.splitext(os.path.basename(output_path))[0]
+    output_dir = os.path.dirname(output_path)
+    work_dir = os.path.join(output_dir, f"{output_basename}.docx-build")
     os.makedirs(work_dir, exist_ok=True)
     
     print(f"Working in: {work_dir}", file=sys.stderr)

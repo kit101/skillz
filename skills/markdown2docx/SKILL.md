@@ -1,5 +1,5 @@
 ---
-name: md2docx
+name: markdown2docx
 description: |
   Convert Markdown files to professional .docx documents with Chinese formatting,
   table styling, automatic TOC, headers/footers, and page layout control.
@@ -26,7 +26,7 @@ python scripts/build.py input.md assets/config.srs.yaml --output SRS.docx
 python scripts/build.py input.md my-config.yaml --output report.docx
 ```
 
-构建中间产物保留在 `{文件名}.docx-build/` 目录下，方便手动修改 XML：
+构建中间产物保留在 `{输出文件名}.docx-build/` 目录下（与输出 .docx 同名），方便手动修改 XML：
 ```
 SRS.docx-build/
 ├── config.yaml        # ← 用户自定义配置（LLM 直接在此生成）
@@ -70,11 +70,11 @@ SRS.docx-build/
 | SRS | `assets/config.srs.yaml` |
 | 通用技术文档 | 基于 `assets/config.default.yaml` 调整 |
 
-**⚠️ 配置文件位置**：自定义配置必须直接写入 `{文件名}.docx-build/config.yaml`，不要放在源文件目录。步骤：
+**⚠️ 配置文件位置**：自定义配置必须直接写入 `{输出文件名}.docx-build/config.yaml`（与输出 .docx 同名目录），不要放在源文件目录。步骤：
 
 ```bash
-mkdir -p doc/需求规格说明.docx-build
-# 然后 write 配置文件到 doc/需求规格说明.docx-build/config.yaml
+mkdir -p doc/输出文件名.docx-build
+# 然后 write 配置文件到 doc/输出文件名.docx-build/config.yaml
 # 然后 build.py 指向该文件
 ```
 
